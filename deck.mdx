@@ -6,7 +6,9 @@ import {
 } from "code-surfer";
 export { vsDarkFull as theme } from "code-surfer";
 import GreetingLoader from "./src/greeting-loader";
-import { Image, Notes } from "mdx-deck";
+import { Appear, Image, Notes } from "mdx-deck";
+import { Split } from "mdx-deck/layouts";
+
 
 # Flash : from Express to Nest
 
@@ -18,14 +20,60 @@ Sharing a js adventure based on a true story
 
 ---
 
-Présentation
+<Split>
+
+  ![](src/fredericb_thumbnail.png)
+
+  ### Frédéric Barthelet
+
+  Architect developer @ Theodo
+
+  Twitter: @bartheletf
+  
+  Github: @fredericbarthelet
+
+</Split>
+
+<Notes>
+  IoT and connected object enthousiast
+  NodeJS experience : Express & Loopback
+  Big PHP background experience. Symfony lover
+</Notes>
 
 ---
 
-# Flash
+A bit of context...
 
-Trello is a card-based organizational tool.
-Flash is part of Trello ecosystem, it empowers user to track their leadtime.
+---
+
+<Split>
+
+  ![](src/taco_trello.png)
+
+  ### Trello
+
+  Collaborative list & card based online organizer app
+
+  https://trello.com
+
+</Split>
+
+---
+
+<Split>
+
+  ![](src/flash-logo.png)
+
+  ### Flash
+
+  <ul style={{ listStyleType: "none" }}>
+    <li>Flash is part of Trello ecosystem</li>
+    <li>Empowers user to track their leadtime</li>
+  </ul>
+
+  https://www.usefla.sh
+
+</Split>
 
 <Notes>
   Express + Glitch
@@ -33,7 +81,35 @@ Flash is part of Trello ecosystem, it empowers user to track their leadtime.
 
 ---
 
-Diagram explication Trello API <-> Flash API <-> Trello Client
+![](src/flash-lead-time-monitoring.png)
+
+---
+
+# Architecture
+
+Proxy
+
+💻  ⚡️ 💻
+
+---
+
+<div style={{ padding: '15px', color: '#eaeaea', backgroundColor: '#08d9d6', marginBottom: '10px' }}>
+  <h3>🛰️ Trello API</h3>
+</div>
+<div style={{ padding: '20px', color: '#eaeaea', backgroundColor: '#252a34', marginBottom: '10px' }}>
+  <h3>⚡️ Flash</h3>
+</div>
+<div style={{ padding: '20px', color: '#eaeaea', backgroundColor: '#ff2e63' }}>
+  <h3> 💻 Trello web application</h3>
+</div>
+
+---
+
+Let's start developing...
+
+---
+
+### 🏃‍ Express (vanilla) + Glitch
 
 ---
 
@@ -92,7 +168,7 @@ Diagram explication Trello API <-> Flash API <-> Trello Client
       Mei ut postea diceret accumsan.
     </Notes>
   </Step>
-  <Step subtitle="Deporting logic in dedicated service">
+  <Step subtitle="First fonctionnal endpoint">
     <Code
       code={
         require("!!raw-loader!./src/flash.glitch.1.4.js")
@@ -115,13 +191,19 @@ Diagram explication Trello API <-> Flash API <-> Trello Client
 
 ---
 
-# 3 months later
+## 3 months later...
 
-New adopters in the company. Increased traffic
-Additional features requested
-Bug reports increasing
-New developers onboarded in the team
-No idea on API consumption and error rates
+<ul style={{ listStyleType: "none" }}>
+  <Appear>
+    <li>😀 - ⬆️ Increased traffic</li>
+    <li>😄 - 🆕 Additional features requested</li>
+    <li>😃 - 👨‍💻 New developers onboarded in the team</li>
+    <li>😐 - 📗 No development standards</li>
+    <li>😖 - 🖨️ No feedback on API consumption and error rates</li>
+    <li>😢 - 🔧 Poor code maintanibility</li>
+    <li>😭 - 🐛 Bug reports increasing</li>
+  </Appear>
+</ul>
 
 ---
 
@@ -129,31 +211,78 @@ Prototyping does not enforce code quality and maintanibility
 
 ---
 
-# Why NestJS
+It's time to evolve
 
-Stick with node.js stack
-Experienced with Lodash
-Theodo's emulation to have a solid framework to answer node.js bids
+---
+
+## Requirements
+
+<ul style={{ listStyleType: "none" }}>
+  <Appear>
+    <li>Stay in NodeJS environement</li>
+    <li>Find substitutes for features and patterns I love in Symfony</li>
+    <li>--- DI container</li>
+    <li>--- Request scoped context</li>
+    <li>--- Annotation like code enhancement</li>
+  </Appear>
+</ul>
+
+---
+
+Stay in NodeJS environement
+
+![](src/loopback.png)
+
+---
+
+Stay in NodeJS environement
+
+![](src/nestjs.png)
+
+---
+
+Topics I would like to share
+
+---
+
+Scoped dependancy injection
+
+Request decorators
 
 ---
 
 <CodeSurferColumnLayout sizes={[1]}>
-  <Step subtitle="Starting simple">
+  <Step subtitle="Service architecture">
     <Code
       code={
-        require("!!raw-loader!./src/flash.glitch.2.1.js")
+        require("!!raw-loader!./src/flash.nest.problem.1.1.ts")
           .default
       }
-      lang="js"
+      lang="ts"
     />
     <Notes>
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Contacting trello API">
+  <Step>
     <Code
       code={
-        require("!!raw-loader!./src/flash.glitch.2.2.js")
+        require("!!raw-loader!./src/flash.nest.problem.1.1.ts")
+          .default
+      }
+      lang="js"
+      focus="3,9,15,21"
+    />
+    <Notes>
+      Cum cu cetero option utroque. Ex duo velit ponderum,
+      iisque mnesarchum ex est, te quem consul recteque his.
+      Mei ut postea diceret accumsan.
+    </Notes>
+  </Step>
+  <Step>
+    <Code
+      code={
+        require("!!raw-loader!./src/flash.nest.problem.1.2.ts")
           .default
       }
       lang="js"
@@ -164,13 +293,14 @@ Theodo's emulation to have a solid framework to answer node.js bids
       Mei ut postea diceret accumsan.
     </Notes>
   </Step>
-  <Step subtitle="Contacting trello API">
+  <Step>
     <Code
       code={
-        require("!!raw-loader!./src/flash.glitch.2.3.js")
+        require("!!raw-loader!./src/flash.nest.problem.1.2.ts")
           .default
       }
       lang="js"
+      focus="22"
     />
     <Notes>
       Cum cu cetero option utroque. Ex duo velit ponderum,
@@ -186,8 +316,16 @@ Scoped dependancy injection
 
 ---
 
+NestJS DI 101
+
+![](src/florian-nestjs-di.png)
+
+https://www.youtube.com/watch?v=UZeWc-UZy2k
+
+---
+
 <CodeSurferColumnLayout sizes={[1]}>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.1.ts")
@@ -199,7 +337,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.2.ts")
@@ -211,7 +349,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.3.ts")
@@ -223,7 +361,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.4.ts")
@@ -235,7 +373,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.5.ts")
@@ -247,7 +385,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.6.ts")
@@ -259,7 +397,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.7.ts")
@@ -271,7 +409,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.8.ts")
@@ -284,7 +422,7 @@ Scoped dependancy injection
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.9.ts")
@@ -306,7 +444,7 @@ Custom decorator
 ---
 
 <CodeSurferColumnLayout sizes={[1]}>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.9.ts")
@@ -319,7 +457,7 @@ Custom decorator
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.di.1.10.ts")
@@ -331,7 +469,7 @@ Custom decorator
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.decorator.1.1.ts")
@@ -343,7 +481,7 @@ Custom decorator
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.decorator.2.1.ts")
@@ -355,7 +493,7 @@ Custom decorator
       Première version de l'app
     </Notes>
   </Step>
-  <Step subtitle="Starting simple">
+  <Step>
     <Code
       code={
         require("!!raw-loader!./src/flash.nest.decorator.3.1.ts")
@@ -371,7 +509,29 @@ Custom decorator
 
 ---
 
-Partie interceptor et filter
+# What I love
+
+😍 I love request injection 😍
+
+<Notes>
+  Affected performence is not an issue. My big perf issue is on Trello API side.
+</Notes>
+
+---
+
+# What I love
+
+😍 I love decorators 😍
+
+---
+
+# What I love
+
+😍 I love nest-cli 😍
+
+---
+
+https://github.com/fredericbarthelet/nestjs-migration
 
 ---
 
